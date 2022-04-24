@@ -3,10 +3,11 @@ import pygame
 class Brick():
     def __init__(self, game, x, y):
         self.game = game
-        self.width = 60
-        self.height = 10
+        self.width = 50
+        self.height = 15
         self.pos_x = x
         self.pos_y = y
+        self.hits = 2
         self.shape = pygame.Rect(self.pos_x, self.pos_y, self.width, self.height)
         self.shape.center = (self.pos_x, self.pos_y)
 
@@ -16,4 +17,5 @@ class Brick():
     def collision_detection(self):
         if self.shape.colliderect(self.game.ball.hitbox):
             self.game.ball.vel_y *= -1
-            return True
+            self.hits -= 1
+        return self.hits < 0
